@@ -13,6 +13,7 @@ import { useQueryState } from "@/hooks/useQueryState";
 gsap.registerPlugin(ScrollTrigger);
 
 export const About = () => {
+  const title = "とるこの魅力";
   // const imgWrapper = React.useRef<HTMLDivElement>(null);
   const imgParallax = React.useRef<HTMLImageElement>(null);
   React.useEffect(() => {
@@ -34,11 +35,11 @@ export const About = () => {
     );
   }, []);
 
-  const [aboutRef, setAboutRef] = useQueryState<HTMLElement>("ref/about");
+  const [aboutCompnentEl, setAboutComponentEl] = useQueryState<HTMLElement>("ref/about");
   const aboutWrapper = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
     if (!aboutWrapper.current) return;
-    setAboutRef(aboutWrapper.current);
+    setAboutComponentEl(aboutWrapper.current);
   }, [aboutWrapper]);
 
   return (
@@ -46,9 +47,11 @@ export const About = () => {
       {/* left */}
       <div className="about-left">
         <div className="about-description-wrapper">
-          <h1>About</h1>
+          <h1>{title}</h1>
           <div className="about-description">
-            <p>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れて</p>
+            <p>
+              この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れて
+            </p>
             {/* <p>
               Lorem ipsum dolor sit amet. Eum sapiente laborum et dolorem earum rem repellat distinctio! Cum architecto
               veritatis hic perspiciatis consequatur ut voluptatum quam.{" "}
@@ -60,7 +63,7 @@ export const About = () => {
               aperiam vel animi eaque quo iusto numquam et odio error.{" "}
             </p> */}
           </div>
-          <Button>Read More</Button>
+          <Button>もっと詳しく♪</Button>
         </div>
       </div>
       {/* right */}
