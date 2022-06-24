@@ -2,6 +2,7 @@ import React from "react";
 //! components
 import "./App.scss";
 import { Header } from "./components/Header";
+import { Top } from "./components/Top";
 import { About } from "./components/About";
 import { Tours } from "./components/Tours";
 import { Footer } from "./components/Footer";
@@ -13,8 +14,9 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <Top />
       <About />
-      <Tours />
+      {/* <Tours /> */}
       <Footer />
     </div>
   );
