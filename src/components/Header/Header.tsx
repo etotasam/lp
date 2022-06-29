@@ -155,7 +155,7 @@ export const Header = () => {
 
     const lists = [
       // { ref: toursRef, index: toursIndex, text: "Tours" },
-      { ref: aboutRef, index: aboutIndex, text: "トルコの魅力" },
+      { ref: aboutRef, index: aboutIndex, text: manuList[aboutIndex] },
     ];
 
     setMenuLists(lists);
