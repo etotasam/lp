@@ -67,10 +67,13 @@ export const Header = () => {
       gsap.fromTo(
         el.current,
         {
-          transform: `translate(${ulRefWidth - totalListWidth}px, ${35 * i + 100}px)`,
+          transform: `translate(${ulRefWidth - totalListWidth - 20}px, ${45 * i + 100}px)`,
+          // borderRadius: "25px",
+          // padding: "3px 10px",
         },
         {
           transform: `translate(0px, 0px)`,
+          marginRight: "20px",
           ease: "power2.out",
           scrollTrigger: {
             trigger: topContainerRef,
@@ -84,45 +87,99 @@ export const Header = () => {
     });
   }, [topContainerRef, ulRef]);
 
-  //? navigationのアニメーション(opacity)
+  //? navigation.listのback-colorを透明にする
   React.useEffect(() => {
-    if (!topContainerRef || !headerHeadline.current || !ulRef.current) return;
-    gsap.fromTo(
-      [headerHeadline.current, ulRef.current],
-      {
-        autoAlpha: 0,
-      },
-      {
-        autoAlpha: 1,
-        duration: 1,
-      }
-    );
-  }, [topContainerRef, headerHeadline, ulRef]);
+    if (!topContainerRef) return;
+    headerNavList.current.forEach((el: any, i: number) => {
+      gsap.fromTo(
+        el.current,
+        {
+          // backgroundColor: "#ffffffe1",
+          // borderRadius: "25px",
+          // padding: "3px 10px",
+        },
+        {
+          backgroundColor: "transparent",
+          duration: 1,
+          scrollTrigger: {
+            trigger: topContainerRef,
+            start: `bottom-=50px top`,
+            end: "bottom-=50px top",
+            scrub: 1,
+          },
+        }
+      );
+    });
+  }, [topContainerRef]);
+
+  //? navigationのアニメーション(opacity)
+  // React.useEffect(() => {
+  //   if (!topContainerRef || !headerHeadline.current || !ulRef.current) return;
+  //   gsap.fromTo(
+  //     [headerHeadline.current, ulRef.current],
+  //     {
+  //       autoAlpha: 0,
+  //     },
+  //     {
+  //       autoAlpha: 1,
+  //       duration: 1,
+  //     }
+  //   );
+  // }, [topContainerRef, headerHeadline, ulRef]);
 
   //? 透明のbar
   const navWrapper = React.useRef<HTMLDivElement>(null);
+  const [topContentEl] = useQueryState<HTMLDivElement>(`ref/topContent`);
+  //todo
+  //? targetをtopコンポーネントの要素にして、その要素がブラウザ画面から外れたタイミングでnav-barの背景の色を変えるようにしている
   React.useEffect(() => {
-    if (!topContainerRef) return;
-    gsap.fromTo(
-      navWrapper.current,
-      {
-        backgroundColor: "transparent",
-        boxShadow: `0px 0px 0px 0px rgba(0, 0, 0, 0)`,
-      },
-      {
-        backgroundColor: "#ffffffe1",
-        boxShadow: `0px 3px 5px 0px rgba(0, 0, 0, 0.1)`,
-        duration: 1,
-        scrollTrigger: {
-          trigger: topContainerRef,
-          start: `bottom-=50px top`,
-          end: "bottom-=50px top",
-          scrub: 1,
-          // markers: true,
-        },
+    if (!navWrapper.current || !topContainerRef) return;
+    const target = topContentEl;
+    const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+      if (entries[0].isIntersecting) {
+        navWrapper.current!.classList.remove("visible");
+        navWrapper.current!.classList.add("invisible");
+      } else {
+        navWrapper.current!.classList.remove("invisible");
+        navWrapper.current!.classList.add("visible");
       }
-    );
-  }, [topContainerRef]);
+    };
+    const opstions: IntersectionObserverInit = {
+      root: null,
+      rootMargin: "-50px 0px",
+      threshold: 0,
+    };
+    const io = new IntersectionObserver(callback, opstions);
+    io.observe(target);
+  }, [navWrapper, topContentEl]);
+  // React.useEffect(() => {
+  //   if (!topContainerRef) return;
+  //   gsap.fromTo(
+  //     navWrapper.current,
+  //     {
+  //       backgroundColor: "transparent",
+  //       boxShadow: `0px 0px 0px 0px rgba(0, 0, 0, 0)`,
+  //     },
+  //     {
+  //       backgroundColor: "#ffffffe1",
+  //       boxShadow: `0px 3px 5px 0px rgba(0, 0, 0, 0.1)`,
+  //       duration: 1,
+  //       scrollTrigger: {
+  //         trigger: topContainerRef,
+  //         start: `bottom-=50px top`,
+  //         end: "bottom-=50px top",
+  //         scrub: 1,
+  //         // markers: true,
+  //       },
+  //     }
+  //   );
+  // }, [topContainerRef]);
+
+  const [navWrapperEl, setNavWrapperEl] = useQueryState<HTMLDivElement>(`ref/navWrapper`);
+  React.useEffect(() => {
+    if (!navWrapper.current) return;
+    setNavWrapperEl(navWrapper.current);
+  }, [navWrapper]);
 
   //? headerのテキストの色を変更
   // React.useEffect(() => {

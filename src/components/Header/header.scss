@@ -1,4 +1,4 @@
-@import "../../__variable.scss";
+@import "@/styles/__variable.scss";
 
 .header {
   color: rgb(22, 182, 246);
@@ -52,6 +52,9 @@
       // z-index: 999;
       padding-right: 1em;
       cursor: pointer;
+      background-color: white;
+      border-radius: 25px;
+      padding: 3px 10px;
 
       .header-nav-list-span {
         display: block;
@@ -85,6 +88,17 @@
       }
     }
   }
+}
+
+//? headerのnav-bar
+.invisible {
+  background-color: transparent;
+  transition-duration: 0.5s;
+}
+
+.visible {
+  background-color: rgba(255, 255, 255, 0.879);
+  transition-duration: 0.5s;
 }
 
 // .header-message-wrapper {

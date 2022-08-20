@@ -3,17 +3,20 @@ import { useQueryState } from "@/hooks/useQueryState";
 
 export const Top = () => {
   const topContainer = React.useRef<HTMLDivElement>(null);
+  const topContent = React.useRef<HTMLDivElement>(null);
   const [topContainerRef, setTopContainerRef] = useQueryState<HTMLDivElement>(`ref/topContainer`);
+  const [topContentEl, setTopContentEl] = useQueryState<HTMLDivElement>(`ref/topContent`);
   React.useEffect(() => {
-    if (!topContainer.current) return;
+    if (!topContainer.current || !topContent.current) return;
+    setTopContentEl(topContent.current);
     setTopContainerRef(topContainer.current);
-  }, [topContainer]);
+  }, [topContainer, topContent]);
   const manuList = ["About", "Concept", "Tours", "News"];
   const headerNavList = React.useRef<any>([]);
   return (
     <>
       <div ref={topContainer} className="top-conteiner">
-        <div className="top-content" />
+        <div ref={topContent} className="top-content" />
 
         {/* <ul className="test-ul">
           {manuList.map((title, index) => (
