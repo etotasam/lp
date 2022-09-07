@@ -1,4 +1,6 @@
 import React from "react";
+//! css
+import styles from "./about.module.scss";
 // import simpleParallax from "simple-parallax-js";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -43,12 +45,12 @@ export const About = () => {
   }, [aboutWrapper]);
 
   return (
-    <section ref={aboutWrapper} className="about-wrapper">
+    <section ref={aboutWrapper} className={styles["wrapper"]}>
       {/* left */}
-      <div className="about-left">
-        <div className="about-description-wrapper">
+      <div className={styles["left"]}>
+        <div className={styles["description-wrapper"]}>
           <h1>{title}</h1>
-          <div className="about-description">
+          <div className={styles["description"]}>
             <p>
               この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れて
             </p>
@@ -67,8 +69,8 @@ export const About = () => {
         </div>
       </div>
       {/* right */}
-      <figure className="about-right">
-        <div className="about-image-wrapper">
+      <figure className={styles["right"]}>
+        <div className={styles["image-wrapper"]}>
           <img ref={imgParallax} src={img} alt="about_image" />
         </div>
         {/* <div className="about-absolute-image-wrapper">

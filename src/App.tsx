@@ -1,6 +1,5 @@
 import React from "react";
 //! components
-import "./App.scss";
 import { Header } from "./components/Header";
 import { Top } from "./components/Top";
 import { About } from "./components/About";
@@ -11,12 +10,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+  React.useEffect(() => {
+    document.title = "タイトルテスト";
+  }, []);
   return (
     <div className="App">
       <Header />
       <Top />
       <About />
-      {/* <Tours /> */}
+      <Tours />
       <Footer />
     </div>
   );
