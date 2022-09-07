@@ -1,29 +1,29 @@
 @import "@/styles/__variable.scss";
 
-.tours-wrapper {
+.wrapper {
   // padding: 20px;
 
-  .tours-headline {
+  .headline {
     text-align: end;
     margin-right: 20px;
     // font-size: min(4vw, 50px);
     font-size: clamp(30px, 4vw, 100px);
   }
 
-  // .tours-description {
+  // .description {
   //   p {
   //     font-size: map-get($font, $key: base_font_size);
   //     line-height: map-get($font, $key: base_line_height);
   //   }
   // }
 
-  .tours-cards-container {
+  .cards-container {
     width: 100%;
     display: flex;
     justify-content: center;
     // margin-top: 50px;
 
-    .tours-card {
+    .card {
       width: 350px;
       margin: 10px 10px;
       // &:not(:last-of-type) {
@@ -33,7 +33,7 @@
   }
 }
 
-.tours-content-wrappter {
+.content-wrappter {
   // background-color: red;
   // text-decoration: none;
   // background-color: lightgreen;
@@ -45,7 +45,7 @@
   // flex-wrap: wrap;
   justify-content: center;
 
-  .tours-content {
+  .content {
     width: 250px;
     // height: 450px;
     // background-color: rgb(142, 142, 142);
@@ -80,7 +80,7 @@
     //   font-size: 25px;
     // }
 
-    .tours-content_item {
+    .content_item {
       margin: 0;
       width: 100%;
       height: 100%;
@@ -88,7 +88,7 @@
       overflow: hidden;
       // background-color: blue;
 
-      .tours-content_item_l {
+      .content_item_l {
         color: white;
         font-size: 25px;
         user-select: none;
@@ -159,14 +159,14 @@
   transform: scale(1.02);
 }
 
-.tours-image-container {
+.image-container {
   position: relative;
   margin: 0;
   background-color: map-get($color, $key: base_font_color);
   width: 90%;
   height: 500px;
 
-  .tours-description {
+  .description {
     position: absolute;
     top: -150px;
     left: 10%;

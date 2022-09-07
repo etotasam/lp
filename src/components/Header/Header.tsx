@@ -1,4 +1,6 @@
 import React from "react";
+//! css
+import styles from "./header.module.scss"
 // import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -137,11 +139,11 @@ export const Header = () => {
     const target = topContentEl;
     const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
       if (entries[0].isIntersecting) {
-        navWrapper.current!.classList.remove("visible");
-        navWrapper.current!.classList.add("invisible");
+        navWrapper.current!.classList.remove(styles["visible"]);
+        navWrapper.current!.classList.add(styles["invisible"]);
       } else {
-        navWrapper.current!.classList.remove("invisible");
-        navWrapper.current!.classList.add("visible");
+        navWrapper.current!.classList.remove(styles["invisible"]);
+        navWrapper.current!.classList.add(styles["visible"]);
       }
     };
     const opstions: IntersectionObserverInit = {
@@ -224,7 +226,7 @@ export const Header = () => {
         end: "bottom center",
         toggleClass: {
           targets: headerNavListSpan.current[list.index].current,
-          className: "header-nav-list-span_active",
+          className: "nav-list-span_active",
         },
         // markers: true,
       });
@@ -245,26 +247,26 @@ export const Header = () => {
 
   return (
     <>
-      <header ref={headerRef} className="header">
-        <div ref={navWrapper} className="nav-wrapper" />
+      <header ref={headerRef} className={`${styles["header"]}`}>
+        <div ref={navWrapper} className={`${styles["nav-wrapper"]}`} />
         {topContainerRef && (
-          <nav className="header-nav">
+          <nav className={`${styles["nav"]}`}>
             <h1
               ref={headerHeadline}
               onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "smooth" })}
-              className="header-headline"
+              className={`${styles["headline"]}`}
             >
               {title}
             </h1>
-            <ul ref={ulRef} className="header-nav-ul">
+            <ul ref={ulRef} className={`${styles["nav-ul"]}`}>
               {manuList.map((text, index) => (
                 <li
-                  className="header-nav-list"
+                  className={`${styles["nav-list"]}`}
                   ref={headerNavList.current[index]}
                   onClick={() => scrollToEl(index)}
                   key={text}
                 >
-                  <span ref={headerNavListSpan.current[index]} className={`header-nav-list-span`}>
+                  <span ref={headerNavListSpan.current[index]} className={`${styles["nav-list-span"]}`}>
                     {text}
                   </span>
                 </li>
@@ -272,7 +274,7 @@ export const Header = () => {
             </ul>
           </nav>
         )}
-        {/* <span className="header-message" data-text="Test Message. Egypt. Trukey. Jordan">
+        {/* <span className="message" data-text="Test Message. Egypt. Trukey. Jordan">
           Test Message. Egypt. Trukey. Jordan
         </span> */}
       </header>

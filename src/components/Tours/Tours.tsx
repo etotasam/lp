@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
+import styles from "./tours.module.scss";
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 //! component
@@ -14,9 +16,14 @@ import { useQueryState } from "@/hooks/useQueryState";
 gsap.registerPlugin(ScrollTrigger);
 
 export const Tours = () => {
+  const contentWrapperRef = useRef<HTMLUListElement>(null);
+  const discriptionRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
+    if (!contentWrapperRef.current || !discriptionRef.current || !wrapperRef.current) return;
+    console.log(contentWrapperRef.current);
     // gsap.fromTo(
-    //   ".tours-headline",
+    //   ".headline",
     //   {
     //     autoAlpha: 0,
     //     x: 200,
@@ -27,7 +34,7 @@ export const Tours = () => {
     //     duration: 1,
     //     delay: 1,
     //     scrollTrigger: {
-    //       trigger: ".tours-wrapper",
+    //       trigger: ".wrapper",
     //       start: "top+=100px bottom",
     //       end: "top+=100px bottom",
     //       // markers: true,
@@ -35,7 +42,8 @@ export const Tours = () => {
     //   }
     // );
     gsap.fromTo(
-      [".tours-content-wrappter"],
+      // [".content-wrappter"],
+      contentWrapperRef.current,
       {
         autoAlpha: 0,
         y: 500,
@@ -43,10 +51,10 @@ export const Tours = () => {
       {
         autoAlpha: 1,
         y: 0,
-        duration: 0.5,
+        duration: 1,
         // delay: 0.5,
         scrollTrigger: {
-          trigger: ".tours-wrapper",
+          trigger: wrapperRef.current,
           start: "top+=100px bottom",
           end: "top+=100px bottom",
           // markers: true,
@@ -54,39 +62,39 @@ export const Tours = () => {
       }
     );
     gsap.fromTo(
-      [".tours-description"],
+      discriptionRef.current,
       {
         autoAlpha: 0,
       },
       {
         autoAlpha: 1,
-        duration: 0.5,
+        duration: 1,
         // delay: 0.5,
         scrollTrigger: {
-          trigger: ".tours-wrapper",
+          trigger: wrapperRef.current,
           start: "top+=100px bottom",
           end: "top+=100px bottom",
-          // markers: true,
+          markers: true,
         },
       }
     );
-    //? tours-descriptionのパララックス
+    //? descriptionのパララックス
     gsap.fromTo(
-      ".tours-description",
+      discriptionRef.current,
       {
         y: 0,
       },
       {
         y: -30,
         scrollTrigger: {
-          trigger: ".tours-wrapper",
+          trigger: wrapperRef.current,
           start: "top bottom",
           end: "bottom bottom",
           scrub: true,
         },
       }
     );
-  }, []);
+  }, [contentWrapperRef, discriptionRef, wrapperRef]);
 
   const cards = [
     {
@@ -106,12 +114,11 @@ export const Tours = () => {
     },
   ];
 
-  const tourswrapper = React.useRef<HTMLElement>(null);
   const [toursRef, setTourswrapper] = useQueryState<HTMLElement>("ref/tours");
   React.useEffect(() => {
-    if (!tourswrapper.current) return;
-    setTourswrapper(tourswrapper.current);
-  }, [tourswrapper]);
+    if (!wrapperRef.current) return;
+    setTourswrapper(wrapperRef.current);
+  }, [wrapperRef]);
 
   const [isHover, setIsHover] = React.useState({ Egypt: false, Jordan: false, Turkey: false });
 
@@ -122,23 +129,23 @@ export const Tours = () => {
 
   return (
     <>
-      <section ref={tourswrapper} className="tours-wrapper">
-        <h1 className="tours-headline">Tours</h1>
+      <section ref={wrapperRef} className={styles["wrapper"]}>
+        <h1 className={styles["headline"]}>Tours</h1>
 
-        <div className="tours-image-container">
-          <div className="tours-description">
+        <div className={styles["image-container"]}>
+          <div ref={discriptionRef} className={styles["description"]}>
             <p>
               この文章はダミーです。
               文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ
             </p>
             <Button>Read More</Button>
           </div>
-          <ul className={`tours-content-wrappter`}>
+          <ul ref={contentWrapperRef} className={styles[`content-wrappter`]}>
             {cards.map(({ img, text, title }) => (
-              <li className="tours-content" key={title}>
+              <li className={styles["content"]} key={title}>
                 <figure
                   data-title={title}
-                  className={`tours-content_item`}
+                  className={styles[`content_item`]}
                   onMouseEnter={() =>
                     setIsHover((v) => {
                       return { ...v, [title]: true };
@@ -153,17 +160,17 @@ export const Tours = () => {
                   <a
                     href="/"
                     onClick={click}
-                    className={`tours-content_item_l ${
+                    className={`${styles["content_item_l"]} ${
                       // @ts-ignore
-                      isHover[title] ? `tours-content_item_l_active` : `tours-content_item_l_inactive`
+                      isHover[title] ? styles[`content_item_l_active`] : styles[`content_item_l_inactive`]
                     }`}
                   >
                     <span>{title}</span>
                   </a>
                   <img
-                    className={`tours-content_item_img ${
+                    className={`${styles["content_item_img"]} ${
                       // @ts-ignore
-                      isHover[title] ? `tours-content_item_img_active` : `tours-content_item_img_inactive`
+                      isHover[title] ? styles[`content_item_img_active`] : styles[`content_item_img_inactive`]
                     }`}
                     src={img}
                     alt={title}

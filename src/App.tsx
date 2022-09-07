@@ -18,7 +18,7 @@ function App() {
       <Header />
       <Top />
       <About />
-      {/* <Tours /> */}
+      <Tours />
       <Footer />
     </div>
   );

@@ -19,7 +19,7 @@
     z-index: 10;
   }
 
-  .header-headline {
+  .headline {
     z-index: 999;
     position: fixed;
     line-height: 1;
@@ -29,7 +29,7 @@
     // color: rgb(112, 112, 112);
   }
 
-  .header-nav {
+  .nav {
     position: fixed;
     top: 0;
     left: 0;
@@ -41,14 +41,14 @@
     align-items: center;
   }
 
-  .header-nav-ul {
+  .nav-ul {
     padding: 0;
     margin: 0 5% 0 0;
     list-style: none;
     display: flex;
     // z-index: 999;
 
-    .header-nav-list {
+    .nav-list {
       // z-index: 999;
       padding-right: 1em;
       cursor: pointer;
@@ -56,7 +56,7 @@
       border-radius: 25px;
       padding: 3px 10px;
 
-      .header-nav-list-span {
+      .nav-list-span {
         display: block;
         position: relative;
 
@@ -101,11 +101,11 @@
   transition-duration: 0.5s;
 }
 
-// .header-message-wrapper {
+// .message-wrapper {
 //   width: 100%;
 // }
 
-.header-message {
+.message {
   padding-left: 30px;
   position: absolute;
   left: 0;
@@ -119,7 +119,7 @@
   animation: infinity_animation 30s infinite linear;
 }
 
-.header-message::after {
+.message::after {
   content: attr(data-text);
   display: inline-block;
   // background-color: red;
