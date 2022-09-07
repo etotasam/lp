@@ -1,13 +1,12 @@
 //! variables
 @import "./__variable.scss";
 //! component css
-@import "./components/Header/header.scss";
-@import "./components/Top/top.scss";
-@import "./components/About/about.scss";
-@import "./components/Tours/tours.scss";
-@import "./components/Footer/footer.scss";
+
+@import "@/components/Top/top.scss";
+// @import "@/components/Tours/tours.scss";
 //! atomic component
-@import "./components/atom/Button/button.scss";
+@import "@/components/atom/Button/button.scss";
+
 
 body {
   font-family: serif sans-serif;
