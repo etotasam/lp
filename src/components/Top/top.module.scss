@@ -1,0 +1,20 @@
+.top-conteiner {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // color: map-get($color, base_font_color);
+  // background-image: url("../../images/_MG_4037のコピー.jpg");
+  // background-size: cover;
+  // background-position: center;
+
+  .top-content {
+    width: 90vw;
+    height: 90vh;
+    background-image: url("../../images/_MG_4037のコピー.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 20px;
+  }
+}
