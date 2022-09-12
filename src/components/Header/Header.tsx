@@ -1,90 +1,38 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React from "react";
 //! css
 import styles from "./header.module.scss";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import navStyles from "./nav.module.scss";
 //! hooks
 import { useQueryState } from "@/hooks/useQueryState";
-//! component
-import { Nav } from "./Nav";
-
-gsap.registerPlugin(ScrollTrigger);
-
+import { useTitleAnimation } from "./hooks/useTitleAnimation";
+import { useNavAnimation } from "./hooks/useNavAnimation";
 export const Header = () => {
   const title = "トルコの旅";
-
+  const navList = ["トルコの魅力", "News", "Tours", "Concept"];
   const [topContainerEl] = useQueryState<HTMLDivElement>(`ref/topContainer`);
-  const headerRef = React.useRef<HTMLElement>(null);
 
-  //? animation of Title
+  //? title
   const titelWrapperRef = React.useRef<HTMLHeadingElement>(null);
-  React.useEffect(() => {
-    if (!topContainerEl) return;
-    gsap.fromTo(
-      titelWrapperRef.current,
-      {
-        top: `50%`,
-        left: `50%`,
-        transform: `translate(-50%, -50%)`,
-        fontSize: "100px",
-      },
-      {
-        top: 0,
-        left: "5%",
-        transform: `translate(0px, 0px)`,
-        fontSize: "50px",
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: topContainerEl,
-          start: "+=100px top",
-          end: "bottom center",
-          scrub: 1,
-          // markers: true,
-        },
-      }
-    );
-  }, [topContainerEl]);
-
-  //? fadein Title animation
   const titleRef = React.useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    gsap.fromTo(
-      titleRef.current,
-      {
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        duration: 1,
-      }
-    );
-  }, [topContainerEl]);
-
-  //? switch header bgColor (transparent or white)
   const navWrapperRef = React.useRef<HTMLDivElement>(null);
-  useLayoutEffect(() => {
-    if (!topContainerEl || !navWrapperRef) return;
-    gsap.fromTo(
-      navWrapperRef.current,
-      {
-        backgroundColor: "transparent",
-      },
-      {
-        backgroundColor: "#ffffffd5",
-        scrollTrigger: {
-          trigger: topContainerEl,
-          start: `bottom-=100 top`,
-          end: `bottom-=100 top`,
-          scrub: 1,
-          // markers: true,
-        },
-      }
-    );
-  }, [topContainerEl, navWrapperRef]);
+  useTitleAnimation({ titelWrapperRef, titleRef, navWrapperRef });
+
+  //? nav
+  const ulRef = React.useRef<HTMLUListElement>(null);
+  const listRef = React.useRef<any>([]);
+  const listInnerDivRef = React.useRef<any>([]);
+  //? create multiple Ref
+  navList.forEach((_, i) => {
+    listInnerDivRef.current[i] = React.createRef<HTMLDivElement>();
+  });
+  navList.forEach((_, i) => {
+    listRef.current[i] = React.createRef<HTMLUListElement>();
+  });
+  useNavAnimation({ ulRef, listRef, listInnerDivRef });
 
   return (
     <>
-      <header ref={headerRef} className={`${styles["header"]}`}>
+      <header className={`${styles["header"]}`}>
         <div ref={navWrapperRef} className={`${styles["header-bar"]}`} />
         {topContainerEl && (
           <div>
@@ -95,7 +43,19 @@ export const Header = () => {
             >
               <h1 ref={titleRef}>{title}</h1>
             </div>
-            <Nav />
+
+            {/* //? nav */}
+            <nav className={`${navStyles["nav"]}`}>
+              <ul ref={ulRef} className={`${navStyles["nav-ul"]}`}>
+                {navList.map((text, index) => (
+                  <li key={text} ref={listRef.current[index]}>
+                    <div key={text} className={`${navStyles["nav-list"]}`} ref={listInnerDivRef.current[index]}>
+                      <span className={`${navStyles["nav-list-span"]}`}>{text}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         )}
       </header>

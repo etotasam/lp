@@ -1,35 +1,31 @@
-import React, { useEffect } from "react";
-import styles from "./nav.module.scss";
+import React from "react";
 import { useQueryState } from "@/hooks/useQueryState";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
-export const Nav = React.memo(() => {
-  const navList = ["トルコの魅力", "News", "Tours", "Concept"];
-  const ulRef = React.useRef<HTMLUListElement>(null);
-  const listRef = React.useRef<any>([]);
-  const listInnerDivRef = React.useRef<any>([]);
+type Props = {
+  ulRef: React.RefObject<HTMLUListElement>;
+  listRef: React.MutableRefObject<any>;
+  listInnerDivRef: React.MutableRefObject<any>;
+};
+
+export const useNavAnimation = ({ ulRef, listRef, listInnerDivRef }: Props) => {
   const [topContainerEl] = useQueryState<HTMLDivElement>(`ref/topContainer`);
 
-  //? create multiple Ref
-  navList.forEach((_, i) => {
-    listInnerDivRef.current[i] = React.createRef<any>();
-  });
-  navList.forEach((_, i) => {
-    listRef.current[i] = React.createRef<any>();
-  });
-
-  //? animation of Nav List(scroll)
   const rightMargin = 20;
   const topMargin = 100;
   const topSpace = 45;
   const extraRightMargin = 20;
-  useEffect(() => {
+  //? set List Margin in css
+  React.useEffect(() => {
     const el = window.document.querySelector(`:root`) as HTMLElement;
     el.style.setProperty(`--list-marginRight`, `${rightMargin}px`);
   }, []);
+  //? animation of Nav List(scroll)
   React.useEffect(() => {
-    if (!topContainerEl || !ulRef.current || !listRef.current) return;
-    const ulWidth = ulRef.current.clientWidth;
+    if (!topContainerEl || !ulRef || !listRef) return;
+    const ulWidth = ulRef.current!.clientWidth;
     listInnerDivRef.current.forEach((el: any, i: number) => {
       const elArr = [...Array(i + 1)].map((v, i) => i);
       const totalListWidth = elArr.reduce((prev, curr) => {
@@ -44,7 +40,6 @@ export const Nav = React.memo(() => {
         },
         {
           transform: `translate(0px, 0px)`,
-
           ease: "power2.out",
           scrollTrigger: {
             trigger: topContainerEl,
@@ -95,18 +90,4 @@ export const Nav = React.memo(() => {
       );
     });
   }, [topContainerEl]);
-
-  return (
-    <nav className={`${styles["nav"]}`}>
-      <ul ref={ulRef} className={`${styles["nav-ul"]}`}>
-        {navList.map((text, index) => (
-          <li key={text} ref={listRef.current[index]}>
-            <div key={text} className={`${styles["nav-list"]}`} ref={listInnerDivRef.current[index]}>
-              <span className={`${styles["nav-list-span"]}`}>{text}</span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-});
+};
