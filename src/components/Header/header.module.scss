@@ -1,139 +1,58 @@
 @import "@/styles/__variable.scss";
 
 .header {
-  color: rgb(22, 182, 246);
-  // min-height: 100vh;
-  // color: map-get($color, base_font_color);
-  // background-image: url("../../images/_MG_4037のコピー.jpg");
-  // background-size: cover;
-  // background-position: center;
-  // overflow-x: hidden;
-  .nav-wrapper {
+  color: rgb(246, 37, 22);
+
+  .header-bar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 50px;
-    // box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.1);
-    // background-color: rgb(112, 112, 112);
     z-index: 10;
   }
 
-  .headline {
-    z-index: 999;
+  .title {
     position: fixed;
     line-height: 1;
     margin: 0;
     cursor: pointer;
-    // font-size: clamp(100px, 1vw, 200px);
-    // color: rgb(112, 112, 112);
-  }
+    z-index: 30;
 
-  .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 50px;
-    z-index: 999;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-  }
-
-  .nav-ul {
-    padding: 0;
-    margin: 0 5% 0 0;
-    list-style: none;
-    display: flex;
-    // z-index: 999;
-
-    .nav-list {
-      // z-index: 999;
-      padding-right: 1em;
-      cursor: pointer;
-      background-color: white;
-      border-radius: 25px;
-      padding: 3px 10px;
-
-      .nav-list-span {
-        display: block;
-        position: relative;
-
-        &::before {
-          z-index: -1;
-          display: block;
-          position: absolute;
-          bottom: -5px;
-          left: 0;
-          right: 0;
-          content: "";
-          height: 1px;
-          background-color: rgb(20, 138, 228);
-          // background-color: map-get($color, base_font_color);
-          transform: scaleX(0);
-          transform-origin: bottom right;
-          transition: transform 0.5s;
-        }
-
-        &:hover::before {
-          transform: scaleX(1);
-          transform-origin: bottom left;
-        }
-
-        &_active::before {
-          transform: scaleX(1);
-          transform-origin: bottom left;
-        }
-      }
+    > h1 {
+      margin: 0;
+      font-size: inherit;
     }
   }
 }
 
-//? headerのnav-bar
-.invisible {
-  background-color: transparent;
-  transition-duration: 0.5s;
-}
+// .message {
+//   padding-left: 30px;
+//   position: absolute;
+//   left: 0;
+//   bottom: 10px;
+//   white-space: nowrap;
 
-.visible {
-  background-color: rgba(255, 255, 255, 0.879);
-  transition-duration: 0.5s;
-}
-
-// .message-wrapper {
-//   width: 100%;
+//   display: inline-block;
+//   color: white;
+//   font-size: 100px;
+//   animation: infinity_animation 30s infinite linear;
 // }
 
-.message {
-  padding-left: 30px;
-  position: absolute;
-  left: 0;
-  bottom: 10px;
-  white-space: nowrap;
-  // width: 100%;
-  // background-color: red;
-  display: inline-block;
-  color: white;
-  font-size: 100px;
-  animation: infinity_animation 30s infinite linear;
-}
+// .message::after {
+//   content: attr(data-text);
+//   display: inline-block;
+//   position: absolute;
+//   bottom: 0;
+//   left: 100%;
+//   padding-left: 30px;
+// }
 
-.message::after {
-  content: attr(data-text);
-  display: inline-block;
-  // background-color: red;
-  position: absolute;
-  bottom: 0;
-  left: 100%;
-  padding-left: 30px;
-}
-
-@keyframes infinity_animation {
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
+// @keyframes infinity_animation {
+//   from {
+//     transform: translateX(0%);
+//   }
+//   to {
+//     transform: translateX(-100%);
+//   }
+// }

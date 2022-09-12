@@ -1,22 +1,22 @@
 import React from "react";
 import { useQueryState } from "@/hooks/useQueryState";
+import styles from "./top.module.scss";
 
 export const Top = () => {
-  const topContainer = React.useRef<HTMLDivElement>(null);
+  const topContainerRef = React.useRef<HTMLDivElement>(null);
   const topContent = React.useRef<HTMLDivElement>(null);
-  const [topContainerRef, setTopContainerRef] = useQueryState<HTMLDivElement>(`ref/topContainer`);
+  const [topContainerEl, setTopContainerEl] = useQueryState<HTMLDivElement>(`ref/topContainer`);
   const [topContentEl, setTopContentEl] = useQueryState<HTMLDivElement>(`ref/topContent`);
   React.useEffect(() => {
-    if (!topContainer.current || !topContent.current) return;
+    if (!topContainerRef.current || !topContent.current) return;
     setTopContentEl(topContent.current);
-    setTopContainerRef(topContainer.current);
-  }, [topContainer, topContent]);
-  const manuList = ["About", "Concept", "Tours", "News"];
-  const headerNavList = React.useRef<any>([]);
+    setTopContainerEl(topContainerRef.current);
+  }, [topContainerRef, topContent]);
+
   return (
     <>
-      <div ref={topContainer} className="top-conteiner">
-        <div ref={topContent} className="top-content" />
+      <div ref={topContainerRef} className={styles["top-conteiner"]}>
+        <div ref={topContent} className={styles["top-content"]} />
 
         {/* <ul className="test-ul">
           {manuList.map((title, index) => (

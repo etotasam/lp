@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 //! css
 import styles from "./about.module.scss";
 // import simpleParallax from "simple-parallax-js";
@@ -14,9 +14,8 @@ import { useQueryState } from "@/hooks/useQueryState";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const About = () => {
+export const About = React.memo(() => {
   const title = "とるこの魅力";
-  // const imgWrapper = React.useRef<HTMLDivElement>(null);
   const imgParallax = React.useRef<HTMLImageElement>(null);
   React.useEffect(() => {
     gsap.fromTo(
@@ -25,14 +24,29 @@ export const About = () => {
         y: 0,
       },
       {
-        y: -100,
+        y: -200,
         ease: "none",
         scrollTrigger: {
-          trigger: ".about-image-wrapper",
+          trigger: `${styles[".about_image"]}`,
           start: "top bottom",
           end: "bottom top",
           scrub: 1,
         },
+      }
+    );
+    gsap.to(
+      `.${styles["right"]}`,
+      // {
+      //   scrollTrigger: `.${styles["right"]}`,
+      //   opacity: 0,
+      //   x: 100,
+      // }
+      {
+        scrollTrigger: `.${styles["right"]}`,
+        opacity: 1,
+        x: 0,
+        ease: "power0",
+        transitionDuration: 2,
       }
     );
   }, []);
@@ -43,6 +57,28 @@ export const About = () => {
     if (!aboutWrapper.current) return;
     setAboutComponentEl(aboutWrapper.current);
   }, [aboutWrapper]);
+
+  useEffect(() => {
+    const targetArray = document.querySelectorAll(`.${styles["description"]}`);
+    const options: IntersectionObserverInit = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0,
+    };
+    const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const color = (entry.target as HTMLDivElement).textContent!;
+          (entry.target as HTMLDivElement).classList.add(`${styles["anime"]}`);
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+    const io = new IntersectionObserver(callback, options);
+    targetArray.forEach((target) => {
+      io.observe(target);
+    });
+  }, []);
 
   return (
     <section ref={aboutWrapper} className={styles["wrapper"]}>
@@ -79,4 +115,4 @@ export const About = () => {
       </figure>
     </section>
   );
-};
+});

@@ -1,0 +1,59 @@
+:root {
+  --list-marginRight: 0px;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 50px;
+  z-index: 20;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.nav-ul {
+  padding: 0;
+  margin: 0 5% 0 0;
+  list-style: none;
+  display: flex;
+
+  .nav-list {
+    cursor: pointer;
+    border-radius: 25px;
+    padding: 3px 10px;
+    margin-right: var(--list-marginRight);
+
+    .nav-list-span {
+      display: block;
+      position: relative;
+
+      &::before {
+        z-index: -1;
+        display: block;
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        right: 0;
+        content: "";
+        height: 1px;
+        background-color: rgb(20, 138, 228);
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.5s;
+      }
+
+      &:hover::before {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+
+      &_active::before {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+    }
+  }
+}
