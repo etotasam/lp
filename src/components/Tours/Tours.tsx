@@ -21,7 +21,6 @@ export const Tours = () => {
   const wrapperRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
     if (!contentWrapperRef.current || !discriptionRef.current || !wrapperRef.current) return;
-    console.log(contentWrapperRef.current);
     // gsap.fromTo(
     //   ".headline",
     //   {
@@ -74,7 +73,7 @@ export const Tours = () => {
           trigger: wrapperRef.current,
           start: "top+=100px bottom",
           end: "top+=100px bottom",
-          markers: true,
+          // markers: true,
         },
       }
     );
