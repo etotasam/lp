@@ -1,5 +1,4 @@
 import React from "react";
-import { useQueryState } from "@/hooks/useQueryState";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,14 +8,12 @@ type Props = {
   titelWrapperRef: React.RefObject<HTMLHeadingElement>;
   titleRef: React.RefObject<HTMLDivElement>;
   navWrapperRef: React.RefObject<HTMLDivElement>;
+  containerRef: React.RefObject<HTMLDivElement>;
 };
 
-export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef }: Props) => {
-  const [topContainerEl] = useQueryState<HTMLDivElement>(`ref/topContainer`);
-
+export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, containerRef }: Props) => {
   //? animation of Title
   React.useEffect(() => {
-    if (!topContainerEl) return;
     gsap.fromTo(
       titelWrapperRef.current,
       {
@@ -32,7 +29,7 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef }: 
         fontSize: "50px",
         ease: "power2.out",
         scrollTrigger: {
-          trigger: topContainerEl,
+          trigger: containerRef.current,
           start: "+=100px top",
           end: "bottom center",
           scrub: 1,
@@ -40,7 +37,7 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef }: 
         },
       }
     );
-  }, [topContainerEl]);
+  }, []);
 
   //? fadein Title animation
   React.useEffect(() => {
@@ -54,11 +51,11 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef }: 
         duration: 1,
       }
     );
-  }, [topContainerEl]);
+  }, []);
 
   //? switch header bgColor (transparent or white)
   React.useEffect(() => {
-    if (!topContainerEl || !navWrapperRef) return;
+    if (!navWrapperRef) return;
     gsap.fromTo(
       navWrapperRef.current,
       {
@@ -67,7 +64,7 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef }: 
       {
         backgroundColor: "#ffffffd5",
         scrollTrigger: {
-          trigger: topContainerEl,
+          trigger: containerRef.current,
           start: `bottom-=100 top`,
           end: `bottom-=100 top`,
           scrub: 1,
@@ -75,5 +72,5 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef }: 
         },
       }
     );
-  }, [topContainerEl, navWrapperRef]);
+  }, [navWrapperRef]);
 };

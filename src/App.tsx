@@ -1,8 +1,7 @@
 import React from "react";
 //! components
 import { Header } from "./components/Header";
-import { Top } from "./components/Top";
-import { About } from "./components/About";
+import { Introduction } from "./components/Introduction";
 import { Tours } from "./components/Tours";
 import { Footer } from "./components/Footer";
 import gsap from "gsap";
@@ -16,8 +15,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Top />
-      {/* <About /> */}
+      {/* <Introduction /> */}
       {/* <Tours /> */}
       <Footer />
     </div>
