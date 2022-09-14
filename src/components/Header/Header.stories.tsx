@@ -16,5 +16,5 @@ const Template: Story<typeof Header> = (args) => (
     <TestComponent />
   </>
 );
-export const Default = Template.bind({});
-Default.args = {};
+export const DefaultHeader = Template.bind({});
+DefaultHeader.args = {};

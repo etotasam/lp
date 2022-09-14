@@ -1,5 +1,5 @@
 import React from "react";
-import gsap from "gsap";
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -9,35 +9,77 @@ type Props = {
   titleRef: React.RefObject<HTMLDivElement>;
   navWrapperRef: React.RefObject<HTMLDivElement>;
   containerRef: React.RefObject<HTMLDivElement>;
+  isPC: boolean | undefined;
 };
 
-export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, containerRef }: Props) => {
+export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, containerRef, isPC }: Props) => {
   //? animation of Title
   React.useEffect(() => {
-    gsap.fromTo(
-      titelWrapperRef.current,
-      {
-        top: `50%`,
-        left: `50%`,
-        transform: `translate(-50%, -50%)`,
-        fontSize: "100px",
-      },
-      {
-        top: 0,
-        left: "5%",
-        transform: `translate(0px, 0px)`,
-        fontSize: "50px",
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "+=100px top",
-          end: "bottom center",
-          scrub: 1,
-          // markers: true,
+    gsap.killTweensOf(titelWrapperRef.current);
+    if (isPC) {
+      gsap.fromTo(
+        titelWrapperRef.current,
+        {
+          top: `50%`,
+          left: `50%`,
+          transform: `translate(-50%, -50%)`,
+          fontSize: "8vw",
+          opacity: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "+=100px top",
+            end: "bottom center",
+            scrub: 1,
+            // markers: true,
+          },
         },
-      }
-    );
-  }, []);
+        {
+          top: 0,
+          left: "5%",
+          transform: `translate(0%, 0%)`,
+          fontSize: "50px",
+          opacity: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "+=100px top",
+            end: "bottom center",
+            scrub: 1,
+            // markers: true,
+          },
+        }
+      );
+    }
+    if (!isPC && isPC !== undefined) {
+      gsap.fromTo(
+        titelWrapperRef.current,
+        {
+          top: `50%`,
+          left: `50%`,
+          transform: `translate(-50%, -50%)`,
+          fontSize: "8vw",
+          opacity: 1,
+        },
+        {
+          top: `52%`,
+          left: `50%`,
+          transform: `translate(-50%, -50%)`,
+          fontSize: "8vw",
+          opacity: 0,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "+=100px top",
+            end: "bottom-=30% center",
+            scrub: 1,
+            // markers: true,
+          },
+        }
+      );
+    }
+  }, [isPC]);
+
+  React.useEffect(() => {}, [isPC]);
 
   //? fadein Title animation
   React.useEffect(() => {
@@ -72,5 +114,5 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
         },
       }
     );
-  }, [navWrapperRef]);
+  }, [navWrapperRef, isPC]);
 };

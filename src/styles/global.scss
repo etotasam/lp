@@ -2,8 +2,10 @@
 @import "./__variable.scss";
 //! component css
 
-//! atomic component
-@import "@/components/atom/Button/button.scss";
+* {
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: serif sans-serif;
