@@ -1,5 +1,9 @@
 @import "@/styles/__variable.scss";
 
+:root {
+  --modal-scale: 0;
+}
+
 .container {
   min-height: 100vh;
   display: flex;
@@ -34,6 +38,7 @@
     line-height: 1;
     margin: 0;
     cursor: pointer;
+    font-size: 8vw;
     z-index: 30;
 
     > h1 {
@@ -41,6 +46,56 @@
       font-size: inherit;
     }
   }
+}
+
+.hamburger-wrapper {
+  background-color: rgb(250, 80, 80);
+  border: 0;
+  border-radius: 50%;
+  position: fixed;
+  bottom: -35px;
+  right: -100px;
+  height: 100px;
+  width: 100px;
+  transition-duration: 0.5s;
+}
+
+.default-hamburger-position {
+  transform: translateX(0px) rotate(180deg);
+}
+
+.modal-open {
+  transform: scale(var(--modal-scale)) translateX(-5px) rotate(-180deg);
+  background-color: pink;
+  z-index: 50;
+  right: -65px;
+}
+
+.hamburger {
+  position: relative;
+  background-color: transparent;
+  // background-color: green;
+  transition-duration: 0.5s;
+  border: 0;
+  border-radius: 50%;
+  color: white;
+  height: 100px;
+  width: 100px;
+  cursor: pointer;
+  position: fixed;
+  bottom: -35px;
+  right: -100px;
+  z-index: 60;
+
+  span {
+    position: absolute;
+    top: 25%;
+    left: 15%;
+  }
+}
+
+.active {
+  transform: translateX(-65px) rotate(0deg);
 }
 
 // .message {

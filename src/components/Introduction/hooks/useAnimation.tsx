@@ -32,38 +32,23 @@ export const useAnimation = ({ imgParallaxRef, aboutContainer, rightImage, descr
         },
       }
     );
-    //? fadein animation of image
-    gsap.fromTo(
-      rightImage.current,
-      {
-        // scrollTrigger: rightImage.current,
-        opacity: 0,
-      },
-      {
-        scrollTrigger: rightImage.current,
-        opacity: 1,
-        ease: "power0",
-        duration: 1.5,
-        delay: 1.5,
-      }
-    );
+    // //? fadein animation of image
+    gsap.from(rightImage.current, {
+      opacity: 0,
+      duration: 1.5,
+      delay: 1.5,
+      scrollTrigger: { trigger: descriptionRef.current },
+    });
   }, [imgParallaxRef, aboutContainer, rightImage]);
 
   //? left content animation
   useEffect(() => {
-    gsap.fromTo(
-      descriptionRef.current,
-      {
-        x: -50,
-        opacity: 0,
-      },
-      {
-        scrollTrigger: descriptionRef.current,
-        x: 0,
-        opacity: 1,
-        duration: 1.5,
-        delay: 0.5,
-      }
-    );
+    gsap.from(descriptionRef.current, {
+      x: -50,
+      opacity: 0,
+      duration: 1.5,
+      delay: 0.5,
+      scrollTrigger: { trigger: descriptionRef.current },
+    });
   }, [descriptionRef]);
 };
