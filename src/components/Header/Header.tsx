@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import gsap from "gsap";
 //! css
 import styles from "./header.module.scss";
 import navStyles from "./nav.module.scss";
@@ -6,6 +7,7 @@ import navStyles from "./nav.module.scss";
 import { useTitleAnimation } from "./hooks/useTitleAnimation";
 import { useNavAnimation } from "./hooks/useNavAnimation";
 import { useWindowSize } from "@/hooks/useWindowSize";
+import { useModal } from "./hooks/useModal";
 
 export const Header = () => {
   const title = "トルコの旅";
@@ -18,22 +20,27 @@ export const Header = () => {
 
   //? windowの高さによってmodalのscaleの値を変更
   const calcScale = () => {
-    if (height > 850) return 17;
-    if (height > 750) return 15;
-    if (height > 650) return 13;
-    if (height > 550) return 10;
+    if (height < 600) return 12;
+    return height / 50;
   };
+
   useEffect(() => {
     const scale = calcScale();
-    console.log(scale);
+    const maxLength = Math.max(width, height);
     const root = window.document.querySelector(`:root`) as HTMLElement;
     root.style.setProperty(`--modal-scale`, `${scale}`);
+    root.style.setProperty(`--modal-length`, `${maxLength}px`);
   }, [height]);
   //? windowの幅でresponsive対応
   useEffect(() => {
     if (!width) return;
     setIsPC(700 < width);
   }, [width]);
+
+  //? pc表示の時はmodaleを閉じる
+  useEffect(() => {
+    if (isPC) setIsOpenModal(false);
+  }, [isPC]);
 
   //? title
   const titelWrapperRef = React.useRef<HTMLHeadingElement>(null);
@@ -72,12 +79,13 @@ export const Header = () => {
                 ref={hamburgerRef}
                 className={`${styles["hamburger-wrapper"]} ${styles["default-hamburger-position"]}`}
               />
+              {isOpenModal && <ModalList navList={navList} />}
               <button
                 ref={hamButtonRef}
                 onClick={() => setIsOpenModal((v) => !v)}
                 className={`${styles["hamburger"]} ${styles["default-hamburger-position"]}`}
               >
-                <span>ぼたん</span>
+                <span className={isOpenModal ? `${styles["span_open_modal"]}` : ``}>ぼたん</span>
               </button>
             </>
           )}
@@ -107,5 +115,26 @@ export const Header = () => {
         </header>
       </div>
     </>
+  );
+};
+
+const ModalList = ({ navList }: { navList: string[] }) => {
+  const modalRef = React.useRef<HTMLDivElement>(null);
+
+  const modaleListRef = React.useRef<any>([]);
+  navList.forEach((_, i) => {
+    modaleListRef.current[i] = React.createRef<HTMLLIElement>();
+  });
+  useModal({ modaleListRef });
+  return (
+    <div ref={modalRef} className={`${styles["modal"]}`}>
+      <ul>
+        {navList.map((list, index) => (
+          <li key={index} ref={modaleListRef.current[index]}>
+            {list}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
