@@ -1,5 +1,6 @@
 import { Introduction } from "./Introduction";
 import { Story, Meta } from "@storybook/react";
+import { Header } from "../Header";
 
 const TestComponent = () => {
   return <div style={{ backgroundColor: "#adf8ff", width: "100%", height: `100vh` }}>test components</div>;
@@ -12,7 +13,7 @@ export default {
 
 const Template: Story<typeof Introduction> = (args: any) => (
   <>
-    <TestComponent />
+    <Header />
     <Introduction {...args} />
     <TestComponent />
   </>

@@ -1,12 +1,17 @@
 @import "@/styles/__variable.scss";
+@import "@/styles/_breakpoint";
+@import "@/styles/_mixin";
 
 .wrapper {
   // padding: 0px 20px;
   margin: 0;
-  display: flex;
+  // display: flex;
   color: map-get($color, base_font_color);
   // color: "rgb(142, 142, 142)";
   // background-color: red;
+  @include mq(pc) {
+    display: flex;
+  }
 
   p {
     margin: 0;
@@ -18,11 +23,16 @@
   }
 
   .left-content {
-    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     // background-color: pink;
+    @include mq(pc) {
+      width: 50%;
+    }
+    @include mq(mobile) {
+      width: 100%;
+    }
 
     h1 {
       font-size: clamp(30px, 4vw, 100px);
@@ -40,24 +50,52 @@
 
     .description p {
       margin-top: 10px;
+      font-size: clamp(12px, 2vw, 16px);
     }
   }
 
   .right-content {
     position: relative;
     margin: 0;
-    width: 50%;
-    height: 800px;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 50px 0;
+    @include mq(pc) {
+      width: 50%;
+    }
+    @include mq(mobile) {
+      width: 100%;
+    }
     // background-color: skyblue;
   }
-  .image-wrapper {
-    width: 500px;
-    height: 700px;
-    // background-color: lightgreen;
+
+  .test-div {
+    background-color: red;
+    width: 90%;
     overflow: hidden;
+    @include mq(mobile) {
+      height: 500px;
+    }
+    overflow: hidden;
+    @include mq(pc) {
+      height: 700px;
+    }
+    // height: 700px;
+  }
+  .image-wrapper {
+    background-color: blue;
+    // width: 100%;
+    overflow: hidden;
+    background-image: url("../../images/Introduction_image3.jpg");
+    background-size: cover;
+    // background-position: bottom;
+    @include mq(mobile) {
+      height: 600px;
+    }
+    @include mq(pc) {
+      height: 800px;
+    }
     img {
       object-fit: cover;
       // width: 120%;

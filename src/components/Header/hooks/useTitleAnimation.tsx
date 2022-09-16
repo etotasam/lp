@@ -15,6 +15,7 @@ type Props = {
 export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, containerRef, isPC }: Props) => {
   //? animation of Title
   React.useEffect(() => {
+    if (isPC === undefined) return;
     gsap.killTweensOf(titelWrapperRef.current);
     if (isPC) {
       gsap.fromTo(
@@ -51,7 +52,7 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
         }
       );
     }
-    if (!isPC && isPC !== undefined) {
+    if (!isPC) {
       gsap.fromTo(
         titelWrapperRef.current,
         {

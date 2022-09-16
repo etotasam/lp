@@ -8,6 +8,7 @@ import img from "../../images/Introduction_image2.jpg";
 import img3 from "../../images/Introduction_image3.jpg";
 //! hooks
 import { useAnimation } from "./hooks/useAnimation";
+import { useCheckDevice } from "@/hooks/useCheckDevice";
 
 export const Introduction = React.memo(() => {
   const title = "トルコのみりょく";
@@ -16,6 +17,8 @@ export const Introduction = React.memo(() => {
   const aboutContainer = React.useRef<HTMLElement>(null);
   const descriptionRef = React.useRef<HTMLDivElement>(null);
   useAnimation({ aboutContainer, rightImage, imgParallaxRef, descriptionRef });
+
+  const { isMobile } = useCheckDevice();
 
   return (
     <section ref={aboutContainer} className={styles["wrapper"]}>
@@ -36,8 +39,10 @@ export const Introduction = React.memo(() => {
         {/* <div className={styles["image-wrapper"]}>
           <img ref={imgParallaxRef} src={img} alt="about_image" />
         </div> */}
-        <div className={styles["image-wrapper"]}>
-          <img ref={imgParallaxRef} src={img3} alt="about_image" />
+        <div className={`${styles["test-div"]}`}>
+          <div ref={imgParallaxRef} className={styles["image-wrapper"]}>
+            {/* <img ref={imgParallaxRef} src={img3} alt="about_image" /> */}
+          </div>
         </div>
       </figure>
     </section>

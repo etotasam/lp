@@ -118,26 +118,26 @@ export const useNavAnimation = ({
     if (isOpenModal) return;
     if (isScroll) {
       hamburgerRef.current?.classList.remove(styles["active"]);
-      hamburgerRef.current?.classList.add(styles["inactive"]);
+      // hamburgerRef.current?.classList.add(styles["inactive"]);
       hamButtonRef.current?.classList.remove(styles["active"]);
-      hamButtonRef.current?.classList.add(styles["inactive"]);
+      // hamButtonRef.current?.classList.add(styles["inactive"]);
     } else {
-      hamburgerRef.current?.classList.remove(styles["inactive"]);
+      // hamburgerRef.current?.classList.remove(styles["inactive"]);
       hamburgerRef.current?.classList.add(styles["active"]);
-      hamButtonRef.current?.classList.remove(styles["inactive"]);
+      // hamButtonRef.current?.classList.remove(styles["inactive"]);
       hamButtonRef.current?.classList.add(styles["active"]);
     }
-  }, [isScroll]);
+  }, [isScroll, isPC]);
 
   React.useEffect(() => {
     if (isOpenModal) {
       // hamburgerRef.current?.classList.remove(styles["default-hamburger-position"]);
-      hamburgerRef.current?.classList.remove(styles["active"]);
+      // hamburgerRef.current?.classList.remove(styles["active"]);
       hamburgerRef.current?.classList.add(styles["modal-open"]);
     } else {
       hamburgerRef.current?.classList.remove(styles["modal-open"]);
       // hamburgerRef.current?.classList.add(styles["default-hamburger-position"]);
-      hamburgerRef.current?.classList.add(styles["active"]);
+      // hamburgerRef.current?.classList.add(styles["active"]);
     }
   }, [isOpenModal]);
 };

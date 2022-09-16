@@ -1,8 +1,10 @@
 @import "@/styles/__variable.scss";
 
 :root {
-  --modal-scale: 0;
+  --modal-scale: 20;
+  --modal-length: 0px;
 }
+$test: --modal-length;
 
 .container {
   min-height: 100vh;
@@ -57,24 +59,28 @@
   right: -100px;
   height: 100px;
   width: 100px;
+
+  // transform: translate(-50% -50%);
   transition-duration: 0.5s;
 }
 
 .default-hamburger-position {
-  transform: translateX(0px) rotate(180deg);
+  z-index: 50;
+  transform: scale(0.1) translateX(0px) rotate(180deg);
 }
 
 .modal-open {
-  transform: scale(var(--modal-scale)) translateX(-5px) rotate(-180deg);
-  background-color: pink;
-  z-index: 50;
-  right: -65px;
+  // transform: scale(20);
+  width: calc(var(--modal-length) * 2.5);
+  height: calc(var(--modal-length) * 2.5);
+  bottom: calc(var(--modal-length) * -1);
+  right: calc(var(--modal-length) * -1);
+  background-color: white;
 }
 
 .hamburger {
   position: relative;
   background-color: transparent;
-  // background-color: green;
   transition-duration: 0.5s;
   border: 0;
   border-radius: 50%;
@@ -89,8 +95,11 @@
 
   span {
     position: absolute;
-    top: 25%;
-    left: 15%;
+    top: 30%;
+    left: 20%;
+  }
+  .span_open_modal {
+    color: rgb(255, 65, 65);
   }
 }
 
@@ -98,33 +107,32 @@
   transform: translateX(-65px) rotate(0deg);
 }
 
-// .message {
-//   padding-left: 30px;
-//   position: absolute;
-//   left: 0;
-//   bottom: 10px;
-//   white-space: nowrap;
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 60;
 
-//   display: inline-block;
-//   color: white;
-//   font-size: 100px;
-//   animation: infinity_animation 30s infinite linear;
-// }
+  > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 
-// .message::after {
-//   content: attr(data-text);
-//   display: inline-block;
-//   position: absolute;
-//   bottom: 0;
-//   left: 100%;
-//   padding-left: 30px;
-// }
-
-// @keyframes infinity_animation {
-//   from {
-//     transform: translateX(0%);
-//   }
-//   to {
-//     transform: translateX(-100%);
-//   }
-// }
+    > li {
+      color: white;
+      background-color: rgb(253, 77, 77);
+      border: none;
+      border-radius: 25px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    > li:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+}
