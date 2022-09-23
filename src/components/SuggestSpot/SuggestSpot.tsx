@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./suggestSpot.module.scss";
 import img2 from "../../images/Introduction_image2.jpg";
 //! hooks
-import { useAnimation } from "./hooks/useAnimation";
+import { useSpotAnimation } from "./hooks/useSpotAnimation";
 
 //! img
 const img = (width = 200, height = 300) => {
@@ -20,10 +20,10 @@ export const SuggestSpot = () => {
   const headlineRef = React.useRef<HTMLHeadingElement>(null);
   // const q = gsap.utils.selector(headlineRef);
   const imgWrapRef = React.useRef<HTMLDivElement>(null);
-  useAnimation({ headlineRef, imgWrapRef });
+  useSpotAnimation({ headlineRef, imgWrapRef });
 
   return (
-    <div>
+    <div className={`${styles["container"]}`}>
       <div>
         <h1 ref={headlineRef} className={`${styles["headline"]}`}>
           {titleCharArray.map((char, index) => (

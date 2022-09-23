@@ -7,7 +7,7 @@ import { Button } from "@/components/atom/Button";
 import img from "../../images/Introduction_image2.jpg";
 import img3 from "../../images/Introduction_image3.jpg";
 //! hooks
-import { useAnimation } from "./hooks/useAnimation";
+import { useIntroductionAnimation } from "./hooks/useIntroductionAnimation";
 import { useCheckDevice } from "@/hooks/useCheckDevice";
 
 export const Introduction = React.memo(() => {
@@ -16,7 +16,7 @@ export const Introduction = React.memo(() => {
   const rightImage = React.useRef<HTMLElement>(null);
   const aboutContainer = React.useRef<HTMLElement>(null);
   const descriptionRef = React.useRef<HTMLDivElement>(null);
-  useAnimation({ aboutContainer, rightImage, imgParallaxRef, descriptionRef });
+  useIntroductionAnimation({ aboutContainer, rightImage, imgParallaxRef, descriptionRef });
 
   const { isMobile } = useCheckDevice();
 

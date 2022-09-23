@@ -36,16 +36,15 @@ $test: --modal-length;
   }
 
   .title {
-    position: fixed;
+    // position: fixed;
     line-height: 1;
     margin: 0;
     cursor: pointer;
-    font-size: 8vw;
     z-index: 30;
+    font-size: inherit;
 
     > h1 {
       margin: 0;
-      font-size: inherit;
     }
   }
 }

@@ -7,6 +7,7 @@ export const useCheckDevice = () => {
 
   const [isMobile, setIsMobile] = useState<boolean>()
   useEffect(() => {
+    if (width === 0) return
     setIsMobile(width < 700)
   }, [width])
 

@@ -64,7 +64,7 @@ export const useNavAnimation = ({
             trigger: containerRef.current,
             start: `+=${(i + 1) * 50}px top`,
             end: `center+=${(i + 1) * 50}px top`,
-            scrub: 0.5,
+            scrub: 1,
             // markers: true,
           },
         }

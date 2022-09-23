@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 //! hooks
 import { useCheckDevice } from "@/hooks/useCheckDevice";
+import { useWindowSize } from "@/hooks/useWindowSize";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,72 +17,57 @@ type Props = {
 
 export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, containerRef }: Props) => {
   const { isMobile } = useCheckDevice();
+  const { width } = useWindowSize();
   //? animation of Title
   React.useEffect(() => {
     if (isMobile === undefined) return;
     gsap.killTweensOf(titelWrapperRef.current);
     if (!isMobile) {
-      gsap.fromTo(
-        titelWrapperRef.current,
-        {
-          top: `50%`,
-          left: `50%`,
-          transform: `translate(-50%, -50%)`,
-          fontSize: "8vw",
-          opacity: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "+=100px top",
-            end: "bottom center",
-            scrub: 1,
-            // markers: true,
-          },
+      gsap.set(titelWrapperRef.current, {
+        position: "fixed",
+        top: `50%`,
+        left: `50%`,
+        transform: `translate(-50%, -50%)`,
+        fontSize: "4vw",
+        opacity: 1,
+      });
+      gsap.to(titelWrapperRef.current, {
+        position: "fixed",
+        top: "0%",
+        left: "5%",
+        transform: `translate(0%, 0%)`,
+        fontSize: "25px",
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "+=100px top",
+          end: "bottom center",
+          scrub: 1,
+          // markers: true,
         },
-        {
-          top: 0,
-          left: "5%",
-          transform: `translate(0%, 0%)`,
-          fontSize: "50px",
-          opacity: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "+=100px top",
-            end: "bottom center",
-            scrub: 1,
-            // markers: true,
-          },
-        }
-      );
+      });
     }
     if (isMobile) {
-      gsap.fromTo(
-        titelWrapperRef.current,
-        {
-          top: `50%`,
-          left: `50%`,
-          transform: `translate(-50%, -50%)`,
-          fontSize: "8vw",
-          opacity: 1,
+      gsap.set(titelWrapperRef.current, {
+        top: `50%`,
+        left: `50%`,
+        transform: `translate(-50%, -50%)`,
+        fontSize: "4vw",
+        opacity: 1,
+      });
+      gsap.to(titelWrapperRef.current, {
+        top: `52%`,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "+=100px top",
+          end: "bottom-=30% center",
+          scrub: 1,
+          // markers: true,
         },
-        {
-          top: `52%`,
-          left: `50%`,
-          transform: `translate(-50%, -50%)`,
-          fontSize: "8vw",
-          opacity: 0,
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "+=100px top",
-            end: "bottom-=30% center",
-            scrub: 1,
-            // markers: true,
-          },
-        }
-      );
+      });
     }
-  }, [isMobile]);
+  }, [isMobile, width]);
 
   //? fadein Title animation
   React.useEffect(() => {

@@ -34,12 +34,6 @@ export const Header = () => {
     root.style.setProperty(`--modal-length`, `${maxLength}px`);
   }, [height]);
 
-  //? windowの幅でresponsive対応
-  // useEffect(() => {
-  //   if (!width) return;
-  //   setIsPC(700 < width);
-  // }, [width]);
-
   //? pc表示の時はmodaleを閉じる
   useEffect(() => {
     if (!isMobile) setIsOpenModal(false);
@@ -67,7 +61,6 @@ export const Header = () => {
 
   const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
   useNavAnimation({ ulRef, listRef, listInnerDivRef, containerRef, hamburgerRef, hamButtonRef, isOpenModal });
-
   return (
     <>
       <div ref={containerRef} className={styles["container"]}>
@@ -93,6 +86,7 @@ export const Header = () => {
             <div ref={navWrapperRef} className={`${styles["header-bar"]}`} />
           )}
 
+          {/* //? title */}
           <div
             ref={titelWrapperRef}
             className={`${styles["title"]}`}

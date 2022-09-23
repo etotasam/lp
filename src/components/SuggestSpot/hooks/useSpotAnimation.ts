@@ -9,33 +9,38 @@ type Props = {
   imgWrapRef: React.RefObject<HTMLDivElement>
 }
 
-export const useAnimation = ({ headlineRef, imgWrapRef }: Props) => {
+export const useSpotAnimation = ({ headlineRef, imgWrapRef }: Props) => {
   const q = gsap.utils.selector(headlineRef);
   useEffect(() => {
-    gsap.from(q(`span`), {
-      // x: -3,
+    gsap.set(q(`span`), {
       y: 5,
       scale: 1.25,
       filter: "blur(6px)",
-      stagger: 0.1,
       opacity: 0,
+    })
+    gsap.to(q(`span`), {
+      // x: -3,
+      y: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      stagger: 0.1,
+      opacity: 1,
       duration: 0.5,
       scrollTrigger: {
         trigger: headlineRef.current,
-        start: "top bottom",
-        end: "top bottom",
+        start: "top 90%",
         // markers: true,
       },
     });
 
-    gsap.from(imgWrapRef.current, {
-      y: 50,
-      opacity: 0,
+    gsap.set(imgWrapRef.current, { y: 50, opacity: 0 })
+    gsap.to(imgWrapRef.current, {
+      y: 0,
+      opacity: 1,
       duration: 1.5,
       scrollTrigger: {
         trigger: imgWrapRef.current,
         start: "top bottom",
-        end: "top bottom",
         // markers: true,
       },
     });
