@@ -8,6 +8,7 @@ import { useTitleAnimation } from "./hooks/useTitleAnimation";
 import { useNavAnimation } from "./hooks/useNavAnimation";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { useModal } from "./hooks/useModal";
+import { useCheckDevice } from "@/hooks/useCheckDevice";
 
 export const Header = () => {
   const title = "トルコの旅";
@@ -16,7 +17,8 @@ export const Header = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   const { width, height } = useWindowSize();
-  const [isPC, setIsPC] = React.useState<boolean | undefined>(undefined);
+  const { isMobile } = useCheckDevice();
+  // const [isPC, setIsPC] = React.useState<boolean | undefined>(undefined);
 
   //? windowの高さによってmodalのscaleの値を変更
   const calcScale = () => {
@@ -31,22 +33,23 @@ export const Header = () => {
     root.style.setProperty(`--modal-scale`, `${scale}`);
     root.style.setProperty(`--modal-length`, `${maxLength}px`);
   }, [height]);
+
   //? windowの幅でresponsive対応
-  useEffect(() => {
-    if (!width) return;
-    setIsPC(700 < width);
-  }, [width]);
+  // useEffect(() => {
+  //   if (!width) return;
+  //   setIsPC(700 < width);
+  // }, [width]);
 
   //? pc表示の時はmodaleを閉じる
   useEffect(() => {
-    if (isPC) setIsOpenModal(false);
-  }, [isPC]);
+    if (!isMobile) setIsOpenModal(false);
+  }, [isMobile]);
 
   //? title
   const titelWrapperRef = React.useRef<HTMLHeadingElement>(null);
   const titleRef = React.useRef<HTMLDivElement>(null);
   const navWrapperRef = React.useRef<HTMLDivElement>(null);
-  useTitleAnimation({ titelWrapperRef, titleRef, navWrapperRef, containerRef, isPC });
+  useTitleAnimation({ titelWrapperRef, titleRef, navWrapperRef, containerRef });
 
   //? nav
   const ulRef = React.useRef<HTMLUListElement>(null);
@@ -63,7 +66,7 @@ export const Header = () => {
   });
 
   const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
-  useNavAnimation({ ulRef, listRef, listInnerDivRef, containerRef, isPC, hamburgerRef, hamButtonRef, isOpenModal });
+  useNavAnimation({ ulRef, listRef, listInnerDivRef, containerRef, hamburgerRef, hamButtonRef, isOpenModal });
 
   return (
     <>
@@ -71,9 +74,7 @@ export const Header = () => {
         <div className={styles["bg-image"]} />
 
         <header className={`${styles["header"]}`}>
-          {isPC ? (
-            <div ref={navWrapperRef} className={`${styles["header-bar"]}`} />
-          ) : (
+          {isMobile ? (
             <>
               <div
                 ref={hamburgerRef}
@@ -88,6 +89,8 @@ export const Header = () => {
                 <span className={isOpenModal ? `${styles["span_open_modal"]}` : ``}>ぼたん</span>
               </button>
             </>
+          ) : (
+            <div ref={navWrapperRef} className={`${styles["header-bar"]}`} />
           )}
 
           <div
@@ -99,7 +102,7 @@ export const Header = () => {
           </div>
 
           {/* //? nav */}
-          {isPC && (
+          {isMobile === false && (
             <nav className={`${navStyles["nav"]}`}>
               <ul ref={ulRef} className={`${navStyles["nav-ul"]}`}>
                 {navList.map((text, index) => (

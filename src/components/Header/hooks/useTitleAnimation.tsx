@@ -2,6 +2,9 @@ import React from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+//! hooks
+import { useCheckDevice } from "@/hooks/useCheckDevice";
+
 gsap.registerPlugin(ScrollTrigger);
 
 type Props = {
@@ -9,15 +12,15 @@ type Props = {
   titleRef: React.RefObject<HTMLDivElement>;
   navWrapperRef: React.RefObject<HTMLDivElement>;
   containerRef: React.RefObject<HTMLDivElement>;
-  isPC: boolean | undefined;
 };
 
-export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, containerRef, isPC }: Props) => {
+export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, containerRef }: Props) => {
+  const { isMobile } = useCheckDevice();
   //? animation of Title
   React.useEffect(() => {
-    if (isPC === undefined) return;
+    if (isMobile === undefined) return;
     gsap.killTweensOf(titelWrapperRef.current);
-    if (isPC) {
+    if (!isMobile) {
       gsap.fromTo(
         titelWrapperRef.current,
         {
@@ -52,7 +55,7 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
         }
       );
     }
-    if (!isPC) {
+    if (isMobile) {
       gsap.fromTo(
         titelWrapperRef.current,
         {
@@ -78,9 +81,7 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
         }
       );
     }
-  }, [isPC]);
-
-  React.useEffect(() => {}, [isPC]);
+  }, [isMobile]);
 
   //? fadein Title animation
   React.useEffect(() => {
@@ -98,7 +99,7 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
 
   //? switch header bgColor (transparent or white)
   React.useEffect(() => {
-    if (!navWrapperRef) return;
+    if (!navWrapperRef.current) return;
     gsap.fromTo(
       navWrapperRef.current,
       {
@@ -115,5 +116,5 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
         },
       }
     );
-  }, [navWrapperRef, isPC]);
+  }, [navWrapperRef.current, isMobile]);
 };

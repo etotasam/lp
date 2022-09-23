@@ -1,0 +1,25 @@
+.ul {
+  list-style: none;
+  li {
+    display: inline-block;
+  }
+}
+
+.headline {
+  span {
+    display: inline-block;
+  }
+}
+
+.img {
+  background-color: #eb1717;
+  width: clamp(250px, 70vw, 500px);
+  // max-width: 500px;
+  // height: 350px;
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    vertical-align: top;
+  }
+}
