@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import { gsap } from "gsap";
 // import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./suggestSpot.module.scss";
@@ -20,7 +20,8 @@ export const SuggestSpot = () => {
   const headlineRef = React.useRef<HTMLHeadingElement>(null);
   // const q = gsap.utils.selector(headlineRef);
   const imgWrapRef = React.useRef<HTMLDivElement>(null);
-  useSpotAnimation({ headlineRef, imgWrapRef });
+  const contRightRef = React.useRef<HTMLDivElement>(null);
+  useSpotAnimation({ headlineRef, imgWrapRef, contRightRef });
 
   return (
     <div className={`${styles["container"]}`}>
@@ -31,8 +32,21 @@ export const SuggestSpot = () => {
           ))}
         </h1>
       </div>
-      <div ref={imgWrapRef} className={`${styles["img"]}`}>
-        <img src={img2} alt="写真1" />
+      {/* //? mine content */}
+      <div className={`${styles["content"]}`}>
+        <div className={`${styles["content__left"]}`}>
+          <div ref={imgWrapRef} className={`${styles["img"]}`}>
+            <img src={img2} alt="写真1" />
+          </div>
+        </div>
+        <div ref={contRightRef} className={`${styles["content__right"]}`}>
+          <div>
+            <h2>コンテンツタイトル</h2>
+            <p>
+              コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章コンテンツ文章
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

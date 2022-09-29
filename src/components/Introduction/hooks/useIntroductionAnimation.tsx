@@ -47,7 +47,6 @@ export const useIntroductionAnimation = ({ imgParallaxRef, aboutContainer, right
   //? left content animation
   useEffect(() => {
     // if (!descriptionRef.current) return;
-    console.log(descriptionRef);
     gsap.set(descriptionRef.current, { x: -50, opacity: 0 });
     gsap.to(descriptionRef.current, {
       x: 0,

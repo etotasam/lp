@@ -1,4 +1,5 @@
 .container {
+  min-height: 100vh;
   background-color: rgb(198, 250, 254);
 }
 
@@ -10,14 +11,46 @@
 }
 
 .headline {
+  // font-size: 6vw;
+  margin: 0;
+  padding: 0;
+  font-weight: 100;
+  font-size: clamp(20px, 6vw, 35px);
   span {
     display: inline-block;
   }
 }
 
+.content {
+  display: flex;
+
+  &__left {
+    width: 55vw;
+    background-color: rgb(208, 208, 250);
+  }
+
+  &__right {
+    width: 45vw;
+    background-color: rgb(254, 214, 214);
+
+    h2 {
+      opacity: 0;
+      margin: 0;
+      font-size: clamp(12px, 5vw, 20px);
+    }
+    p {
+      opacity: 0;
+      font-size: clamp(10px, 3vw, 16px);
+      margin: 0;
+      padding: 10px 10px;
+    }
+  }
+}
+
 .img {
-  background-color: #eb1717;
-  width: clamp(250px, 70vw, 500px);
+  // background-color: #eb1717;
+  padding: 7%;
+  width: clamp(100px, 45vw, 500px);
   // max-width: 500px;
   // height: 350px;
   img {

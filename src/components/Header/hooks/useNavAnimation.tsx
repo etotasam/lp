@@ -118,13 +118,9 @@ export const useNavAnimation = ({
     if (isOpenModal) return;
     if (isScroll) {
       hamburgerRef.current?.classList.remove(styles["active"]);
-      // hamburgerRef.current?.classList.add(styles["inactive"]);
       hamButtonRef.current?.classList.remove(styles["active"]);
-      // hamButtonRef.current?.classList.add(styles["inactive"]);
     } else {
-      // hamburgerRef.current?.classList.remove(styles["inactive"]);
       hamburgerRef.current?.classList.add(styles["active"]);
-      // hamButtonRef.current?.classList.remove(styles["inactive"]);
       hamButtonRef.current?.classList.add(styles["active"]);
     }
   }, [isScroll, isMobile]);

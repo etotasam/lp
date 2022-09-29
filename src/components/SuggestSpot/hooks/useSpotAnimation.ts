@@ -7,10 +7,12 @@ gsap.registerPlugin(ScrollTrigger);
 type Props = {
   headlineRef: React.RefObject<HTMLHeadingElement>
   imgWrapRef: React.RefObject<HTMLDivElement>
+  contRightRef: React.RefObject<HTMLDivElement>
 }
 
-export const useSpotAnimation = ({ headlineRef, imgWrapRef }: Props) => {
+export const useSpotAnimation = ({ headlineRef, imgWrapRef, contRightRef }: Props) => {
   const q = gsap.utils.selector(headlineRef);
+  const contRightEl = gsap.utils.selector(contRightRef);
   useEffect(() => {
     gsap.set(q(`span`), {
       y: 5,
@@ -44,5 +46,34 @@ export const useSpotAnimation = ({ headlineRef, imgWrapRef }: Props) => {
         // markers: true,
       },
     });
+
+    gsap.set(contRightEl("h2"), {
+      x: -30,
+      // opacity: 0
+    })
+    gsap.set(contRightEl("p"), {
+      x: 30,
+      // opacity: 0
+    })
+
+    gsap.to(contRightEl("h2"), {
+      x: 0,
+      opacity: 1,
+      duration: 1.5,
+      scrollTrigger: {
+        trigger: imgWrapRef.current,
+        start: "top bottom",
+      }
+    })
+    gsap.to(contRightEl("p"), {
+      x: 0,
+      opacity: 1,
+      duration: 1.5,
+      delay: 0.5,
+      scrollTrigger: {
+        trigger: imgWrapRef.current,
+        start: "top bottom",
+      }
+    })
   }, []);
 }

@@ -24,7 +24,8 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
     gsap.killTweensOf(titelWrapperRef.current);
     if (!isMobile) {
       gsap.set(titelWrapperRef.current, {
-        position: "fixed",
+        // position: "fixed",
+        pointerEvents: "auto",
         top: `50%`,
         left: `50%`,
         transform: `translate(-50%, -50%)`,
@@ -32,7 +33,7 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
         opacity: 1,
       });
       gsap.to(titelWrapperRef.current, {
-        position: "fixed",
+        // position: "fixed",
         top: "0%",
         left: "5%",
         transform: `translate(0%, 0%)`,
@@ -49,14 +50,15 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
     }
     if (isMobile) {
       gsap.set(titelWrapperRef.current, {
-        top: `50%`,
+        top: `40%`,
         left: `50%`,
+        opacity: 1,
+        pointerEvents: "none",
         transform: `translate(-50%, -50%)`,
         fontSize: "4vw",
-        opacity: 1,
       });
       gsap.to(titelWrapperRef.current, {
-        top: `52%`,
+        top: `42%`,
         opacity: 0,
         scrollTrigger: {
           trigger: containerRef.current,

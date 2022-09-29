@@ -1,0 +1,27 @@
+.test {
+  display: inline-block;
+  transition: all 1s;
+  -webkit-transition: -webkit-transform all 1s;
+}
+
+.rotate {
+  // transition: all 1s;
+  // color: red;
+  transform: translate(0px, 50px);
+}
+.chrome-active {
+  color: pink;
+}
+
+.test-anime {
+  animation: test-anime 1s ease forwards;
+}
+
+@keyframes test-anime {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(50px) rotate(360deg);
+  }
+}
