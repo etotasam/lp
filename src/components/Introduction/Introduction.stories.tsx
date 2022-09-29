@@ -18,5 +18,5 @@ const Template: Story<typeof Introduction> = (args: any) => (
     <TestComponent />
   </>
 );
-export const DefaultAbout = Template.bind({});
-DefaultAbout.args = {};
+export const DefaultIntroduction = Template.bind({});
+DefaultIntroduction.args = {};

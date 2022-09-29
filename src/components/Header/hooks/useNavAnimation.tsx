@@ -1,11 +1,12 @@
 import React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import Bowser from "bowser";
 import styles from "../header.module.scss";
 
 //! hooks
 import { useScroll } from "@/hooks/useScroll";
+import { useCheckDevice } from "@/hooks/useCheckDevice";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +15,6 @@ type Props = {
   listRef: React.MutableRefObject<any>;
   listInnerDivRef: React.MutableRefObject<any>;
   containerRef: React.RefObject<HTMLDivElement>;
-  isPC: boolean | undefined;
   hamburgerRef: React.RefObject<HTMLDivElement>;
   hamButtonRef: React.RefObject<HTMLButtonElement>;
   isOpenModal: boolean;
@@ -25,11 +25,19 @@ export const useNavAnimation = ({
   listRef,
   listInnerDivRef,
   containerRef,
-  isPC,
   hamburgerRef,
   hamButtonRef,
   isOpenModal,
 }: Props) => {
+  //? userAgent情報取得
+  const agent = Bowser.parse(window.navigator.userAgent);
+  const browser = agent.browser.name;
+  const os = agent.os.name;
+
+  const { isMobile } = useCheckDevice();
+
+  const { isScroll } = useScroll();
+
   const rightMargin = 20;
   const topMargin = 100;
   const topSpace = 45;
@@ -42,8 +50,8 @@ export const useNavAnimation = ({
 
   //? animation of Nav List(scroll)
   React.useEffect(() => {
-    if (!isPC) return;
-    if (!containerRef || !ulRef || !listRef) return;
+    if (isMobile || isMobile === undefined) return;
+    // if (!containerRef.current || !ulRef.current || !listRef.current) return;
     const ulWidth = ulRef.current!.clientWidth;
     listInnerDivRef.current.forEach((el: any, i: number) => {
       const elArr = [...Array(i + 1)].map((v, i) => i);
@@ -64,7 +72,7 @@ export const useNavAnimation = ({
             trigger: containerRef.current,
             start: `+=${(i + 1) * 50}px top`,
             end: `center+=${(i + 1) * 50}px top`,
-            scrub: 0.5,
+            scrub: 1,
             // markers: true,
           },
         }
@@ -85,11 +93,11 @@ export const useNavAnimation = ({
         }
       );
     });
-  }, [containerRef, isPC]);
+  }, [containerRef.current, isMobile]);
 
   //? switch List bgColor by scroll (transparent or white)
   React.useEffect(() => {
-    if (!isPC) return;
+    if (isMobile) return;
     if (!containerRef) return;
     listInnerDivRef.current.forEach((el: any, i: number) => {
       gsap.fromTo(
@@ -110,24 +118,20 @@ export const useNavAnimation = ({
         }
       );
     });
-  }, [containerRef, isPC]);
+  }, [containerRef, isMobile]);
 
-  const { isScroll } = useScroll();
   //? add class to hamburger when scroll
   React.useEffect(() => {
     if (isOpenModal) return;
     if (isScroll) {
+      if (browser === "Chrome" && os === "iOS") return;
       hamburgerRef.current?.classList.remove(styles["active"]);
-      // hamburgerRef.current?.classList.add(styles["inactive"]);
       hamButtonRef.current?.classList.remove(styles["active"]);
-      // hamButtonRef.current?.classList.add(styles["inactive"]);
     } else {
-      // hamburgerRef.current?.classList.remove(styles["inactive"]);
       hamburgerRef.current?.classList.add(styles["active"]);
-      // hamButtonRef.current?.classList.remove(styles["inactive"]);
       hamButtonRef.current?.classList.add(styles["active"]);
     }
-  }, [isScroll, isPC]);
+  }, [isScroll, isMobile]);
 
   React.useEffect(() => {
     if (isOpenModal) {

@@ -15,3 +15,7 @@ body {
   color: map-get($color, base_font_color);
   overflow-x: hidden;
 }
+
+p {
+  font-size: clamp(12px, 2vw, 16px);
+}

@@ -3,6 +3,6 @@ $color: (
 );
 
 $font: (
-  "base_font_size": 18px,
+  "base_font_size": clamp(12px, 2vw, 16px),
   "base_line_height": 2em,
 );

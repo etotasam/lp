@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+//! hooks
+import { useCheckDevice } from "@/hooks/useCheckDevice";
+
 gsap.registerPlugin(ScrollTrigger);
 
 type Props = {
@@ -11,7 +14,8 @@ type Props = {
   descriptionRef: React.RefObject<HTMLDivElement>;
 };
 
-export const useAnimation = ({ imgParallaxRef, aboutContainer, rightImage, descriptionRef }: Props) => {
+export const useIntroductionAnimation = ({ imgParallaxRef, aboutContainer, rightImage, descriptionRef }: Props) => {
+  const { isMobile } = useCheckDevice();
   //? image animation
   useEffect(() => {
     if (!imgParallaxRef || !aboutContainer || !rightImage) return;
@@ -32,23 +36,33 @@ export const useAnimation = ({ imgParallaxRef, aboutContainer, rightImage, descr
         },
       }
     );
-    // //? fadein animation of image
-    gsap.from(rightImage.current, {
+    //? fadein animation of image
+    gsap.set(rightImage.current, {
       opacity: 0,
+    });
+    gsap.to(rightImage.current, {
+      opacity: 1,
       duration: 1.5,
       delay: 1.5,
-      scrollTrigger: { trigger: descriptionRef.current },
+      scrollTrigger: { trigger: descriptionRef.current, start: "top bottom" },
     });
   }, [imgParallaxRef, aboutContainer, rightImage]);
 
   //? left content animation
   useEffect(() => {
-    gsap.from(descriptionRef.current, {
-      x: -50,
-      opacity: 0,
+    // if (!descriptionRef.current) return;
+    gsap.killTweensOf(descriptionRef.current);
+    gsap.set(descriptionRef.current, { x: -50, opacity: 0 });
+    gsap.to(descriptionRef.current, {
+      x: 0,
+      opacity: 1,
       duration: 1.5,
       delay: 0.5,
-      scrollTrigger: { trigger: descriptionRef.current },
+      scrollTrigger: {
+        trigger: descriptionRef.current,
+        start: "top bottom",
+        // markers: true,
+      },
     });
-  }, [descriptionRef]);
+  }, [isMobile]);
 };

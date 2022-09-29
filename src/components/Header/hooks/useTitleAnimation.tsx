@@ -2,6 +2,10 @@ import React from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+//! hooks
+import { useCheckDevice } from "@/hooks/useCheckDevice";
+import { useWindowSize } from "@/hooks/useWindowSize";
+
 gsap.registerPlugin(ScrollTrigger);
 
 type Props = {
@@ -9,78 +13,63 @@ type Props = {
   titleRef: React.RefObject<HTMLDivElement>;
   navWrapperRef: React.RefObject<HTMLDivElement>;
   containerRef: React.RefObject<HTMLDivElement>;
-  isPC: boolean | undefined;
 };
 
-export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, containerRef, isPC }: Props) => {
+export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, containerRef }: Props) => {
+  const { isMobile } = useCheckDevice();
+  const { width } = useWindowSize();
   //? animation of Title
   React.useEffect(() => {
-    if (isPC === undefined) return;
+    if (isMobile === undefined) return;
     gsap.killTweensOf(titelWrapperRef.current);
-    if (isPC) {
-      gsap.fromTo(
-        titelWrapperRef.current,
-        {
-          top: `50%`,
-          left: `50%`,
-          transform: `translate(-50%, -50%)`,
-          fontSize: "8vw",
-          opacity: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "+=100px top",
-            end: "bottom center",
-            scrub: 1,
-            // markers: true,
-          },
+    if (!isMobile) {
+      gsap.set(titelWrapperRef.current, {
+        // position: "fixed",
+        pointerEvents: "auto",
+        top: `50%`,
+        left: `50%`,
+        transform: `translate(-50%, -50%)`,
+        fontSize: "4vw",
+        opacity: 1,
+      });
+      gsap.to(titelWrapperRef.current, {
+        // position: "fixed",
+        top: "0%",
+        left: "5%",
+        transform: `translate(0%, 0%)`,
+        fontSize: "25px",
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "+=100px top",
+          end: "bottom center",
+          scrub: 1,
+          // markers: true,
         },
-        {
-          top: 0,
-          left: "5%",
-          transform: `translate(0%, 0%)`,
-          fontSize: "50px",
-          opacity: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "+=100px top",
-            end: "bottom center",
-            scrub: 1,
-            // markers: true,
-          },
-        }
-      );
+      });
     }
-    if (!isPC) {
-      gsap.fromTo(
-        titelWrapperRef.current,
-        {
-          top: `50%`,
-          left: `50%`,
-          transform: `translate(-50%, -50%)`,
-          fontSize: "8vw",
-          opacity: 1,
+    if (isMobile) {
+      gsap.set(titelWrapperRef.current, {
+        top: `45%`,
+        left: `50%`,
+        opacity: 1,
+        pointerEvents: "none",
+        transform: `translate(-50%, -50%)`,
+        fontSize: "4vw",
+      });
+      gsap.to(titelWrapperRef.current, {
+        top: `47%`,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom-=30% center",
+          scrub: 1,
+          // markers: true,
         },
-        {
-          top: `52%`,
-          left: `50%`,
-          transform: `translate(-50%, -50%)`,
-          fontSize: "8vw",
-          opacity: 0,
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "+=100px top",
-            end: "bottom-=30% center",
-            scrub: 1,
-            // markers: true,
-          },
-        }
-      );
+      });
     }
-  }, [isPC]);
-
-  React.useEffect(() => {}, [isPC]);
+  }, [isMobile, width]);
 
   //? fadein Title animation
   React.useEffect(() => {
@@ -98,7 +87,7 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
 
   //? switch header bgColor (transparent or white)
   React.useEffect(() => {
-    if (!navWrapperRef) return;
+    if (!navWrapperRef.current) return;
     gsap.fromTo(
       navWrapperRef.current,
       {
@@ -115,5 +104,5 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
         },
       }
     );
-  }, [navWrapperRef, isPC]);
+  }, [navWrapperRef.current, isMobile]);
 };

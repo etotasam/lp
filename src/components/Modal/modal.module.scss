@@ -1,0 +1,25 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgb(186, 247, 232);
+  width: 100vw;
+  min-height: 100vh;
+  z-index: 999;
+}
+
+.anime {
+  animation: fadeout 1s ease forwards;
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+    visibility: hidden;
+  }
+}
