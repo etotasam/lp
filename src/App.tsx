@@ -36,7 +36,7 @@ function App() {
       <Header />
       <Introduction />
       <SuggestSpot />
-      <Footer />
+      {/* <Footer /> */}
       {!inVisible && <Modal loaded={loaded} />}
     </div>
   );

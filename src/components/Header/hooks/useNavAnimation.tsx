@@ -1,7 +1,7 @@
 import React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import Bowser from "bowser";
 import styles from "../header.module.scss";
 
 //! hooks
@@ -29,7 +29,15 @@ export const useNavAnimation = ({
   hamButtonRef,
   isOpenModal,
 }: Props) => {
+  //? userAgent情報取得
+  const agent = Bowser.parse(window.navigator.userAgent);
+  const browser = agent.browser.name;
+  const os = agent.os.name;
+
   const { isMobile } = useCheckDevice();
+
+  const { isScroll } = useScroll();
+
   const rightMargin = 20;
   const topMargin = 100;
   const topSpace = 45;
@@ -112,11 +120,11 @@ export const useNavAnimation = ({
     });
   }, [containerRef, isMobile]);
 
-  const { isScroll } = useScroll();
   //? add class to hamburger when scroll
   React.useEffect(() => {
     if (isOpenModal) return;
     if (isScroll) {
+      if (browser === "Chrome" && os === "iOS") return;
       hamburgerRef.current?.classList.remove(styles["active"]);
       hamButtonRef.current?.classList.remove(styles["active"]);
     } else {

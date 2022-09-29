@@ -1,4 +1,6 @@
 @import "@/styles/__variable.scss";
+@import "@/styles/_breakpoint";
+@import "@/styles/_mixin";
 
 :root {
   --modal-scale: 20;
@@ -7,38 +9,48 @@
 $test: --modal-length;
 
 .container {
-  min-height: 100vh;
+  @include mq(pc) {
+    min-height: 100vh;
+  }
+  @include mq(mobile) {
+    min-height: 80vh;
+  }
   display: flex;
   justify-content: center;
   align-items: center;
 
   .bg-image {
     width: 90vw;
-    height: 90vh;
     background-image: url("../../images/_MG_4037のコピー.jpg");
     background-size: cover;
     background-position: center;
     position: relative;
     border-radius: 20px;
+    @include mq(pc) {
+      height: 90vh;
+    }
+    @include mq(mobile) {
+      height: 70vh;
+    }
   }
 }
 
-.container_mobile {
-  min-height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+// .container_mobile {
+//   min-height: 80vh;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
 
-  .bg-image {
-    width: 90vw;
-    height: 70vh;
-    background-image: url("../../images/_MG_4037のコピー.jpg");
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    border-radius: 20px;
-  }
-}
+//   .bg-image {
+//     width: 90vw;
+//     height: 70vh;
+//     background-image: url("../../images/_MG_4037のコピー.jpg");
+//     background-size: cover;
+//     background-position: center;
+//     position: relative;
+//     border-radius: 20px;
+//   }
+// }
 
 .header {
   color: rgb(246, 37, 22);

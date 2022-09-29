@@ -1,4 +1,4 @@
-@import "@/styles/__variable.scss";
+@import "@/styles/__variable";
 @import "@/styles/_breakpoint";
 @import "@/styles/_mixin";
 
@@ -16,7 +16,7 @@
   p {
     margin: 0;
     line-height: map-get($font, base_line_height);
-    font-size: map-get($font, base_font_size);
+    // font-size: map-get($font, base_font_size);
   }
   h1 {
     margin: 0;
@@ -39,8 +39,9 @@
     }
 
     .description-wrapper {
-      width: 80%;
-      margin: 50px auto 0px;
+      // width: 80%;
+      padding: 0px 10%;
+      // margin: 50px auto 0px;
       // background-color: lightgreen;
 
       button {
@@ -50,7 +51,7 @@
 
     .description p {
       margin-top: 10px;
-      font-size: clamp(12px, 2vw, 16px);
+      // font-size: map-get($font, base_font_size);
     }
   }
 

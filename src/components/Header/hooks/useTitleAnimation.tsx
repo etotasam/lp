@@ -50,7 +50,7 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
     }
     if (isMobile) {
       gsap.set(titelWrapperRef.current, {
-        top: `40%`,
+        top: `45%`,
         left: `50%`,
         opacity: 1,
         pointerEvents: "none",
@@ -58,11 +58,11 @@ export const useTitleAnimation = ({ titelWrapperRef, titleRef, navWrapperRef, co
         fontSize: "4vw",
       });
       gsap.to(titelWrapperRef.current, {
-        top: `42%`,
+        top: `47%`,
         opacity: 0,
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "+=100px top",
+          start: "top top",
           end: "bottom-=30% center",
           scrub: 1,
           // markers: true,

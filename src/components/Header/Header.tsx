@@ -63,7 +63,7 @@ export const Header = () => {
   useNavAnimation({ ulRef, listRef, listInnerDivRef, containerRef, hamburgerRef, hamButtonRef, isOpenModal });
   return (
     <>
-      <div ref={containerRef} className={isMobile ? styles["container_mobile"] : styles["container"]}>
+      <div ref={containerRef} className={styles["container"]}>
         <div className={styles["bg-image"]} />
 
         <header className={`${styles["header"]}`}>

@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+//! hooks
+import { useCheckDevice } from "@/hooks/useCheckDevice";
+
 gsap.registerPlugin(ScrollTrigger);
 
 type Props = {
@@ -12,6 +15,7 @@ type Props = {
 };
 
 export const useIntroductionAnimation = ({ imgParallaxRef, aboutContainer, rightImage, descriptionRef }: Props) => {
+  const { isMobile } = useCheckDevice();
   //? image animation
   useEffect(() => {
     if (!imgParallaxRef || !aboutContainer || !rightImage) return;
@@ -47,6 +51,7 @@ export const useIntroductionAnimation = ({ imgParallaxRef, aboutContainer, right
   //? left content animation
   useEffect(() => {
     // if (!descriptionRef.current) return;
+    gsap.killTweensOf(descriptionRef.current);
     gsap.set(descriptionRef.current, { x: -50, opacity: 0 });
     gsap.to(descriptionRef.current, {
       x: 0,
@@ -59,5 +64,5 @@ export const useIntroductionAnimation = ({ imgParallaxRef, aboutContainer, right
         // markers: true,
       },
     });
-  }, []);
+  }, [isMobile]);
 };
